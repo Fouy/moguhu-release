@@ -42,6 +42,7 @@ sudo rm -rf ${moguhuPath}/moguhu-release-master.zip
 
 # replace /bin/* files
 sudo sed -i 's/'${convertGitProjectPath}'/'${convertProjectPath}'/g' ${projectPath}/bin/*
+sudo sed -i 's/'${convertGitOpenrestyPath}'/'${convertOpenrestyPath}'/g' ${projectPath}/bin/*
 
 # replace config/* files
 sudo sed -i 's/'${convertGitProjectPath}'/'${convertProjectPath}'/g' ${projectPath}/config/*
