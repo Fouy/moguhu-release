@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>风度玉门-文章编辑页面</title>
+	<script src="/js/ckeditor/ckeditor.js"></script>
+	<script src="/js/jquery/jquery-1.8.min.js"></script>
+</head>
+<body>
+<input type="hidden" name="articleId" id="articleId" value="{% if articleId ~= nil then %}{* articleId *}{% end %}" />
+<input type="hidden" name="typeValue" id="typeValue" value="{% if entity ~= nil then %}{* entity.type_id *}{% end %}" />
+<input type="hidden" name="tagValue" id="tagValue" value="{% if entity ~= nil then %}{* entity.tag_id *}{% end %}" />
+分类：
+<select id="type" name="type">
+</select><br/>
+标签：
+<select id="tag" name="tag">
+</select><br/>
+热门：
+<select id="hot" name="hot">
+	<option value="0">否</option>
+	<option value="1">是</option>
+</select><br/>
+标题：<input type="text" name="title" id="title" value="{% if entity ~= nil then %}{* entity.title *}{% end %}" /><br/>
+来源：<input type="text" name="source" id="source" value="{% if entity ~= nil then %}{* entity.source *}{% end %}" /><br/>
+<textarea id="TextArea1" class="ckeditor">{% if entity ~= nil then %}{* entity.content *}{% end %}</textarea>
+口令：<input type="password" name="token" id="token" value="" /><br/>
+<input type="button" name="sss" id="submit" value="提交" />
+
+<script>
+	var config = {
+		extraPlugins: 'codesnippet',
+		codeSnippet_theme: 'zenburn',
+		height: 356
+	};
+
+	var editor = CKEDITOR.replace('TextArea1', config);
+
+	$(function(){
+		// 初始化select		
+		var type = $("#type");
+		type.empty();
+		$.post("/articletype/list", {}, function(result){
+			var data = eval(result);
+			var list = data.data;
+	    	for(var i = 0; i < list.length; i++) {
+	    		var opt = $('<option></option>');
+	    		opt.attr('value', list[i].type_id);
+	    		opt.append(list[i].name);
+	    		opt.appendTo(type);
+	    	}
+
+	    	var typeValue = $('#typeValue').val();
+	    	if(typeValue) {
+	    		$("#type").val(typeValue);
+	    	}
+
+	    }, 'json');
+
+	    var tag = $("#tag");
+		tag.empty();
+		$.post("/tag/list", {}, function(result){
+			var data = eval(result);
+			var list = data.data;
+	    	for(var i = 0; i < list.length; i++) {
+	    		var opt = $('<option></option>');
+	    		opt.attr('value', list[i].tag_id);
+	    		opt.append(list[i].name);
+	    		opt.appendTo(tag);
+	    	}
+
+	    	var tagValue = $('#tagValue').val();
+	    	if(tagValue) {
+	    		$("#tag").val(tagValue);
+	    	}
+
+	    }, 'json');
+
+		// 提交按钮
+		$('#submit').click(function(){
+			
+			var content = editor.document.getBody().getHtml();
+			var data = {};
+			data.token = $('#token').val();
+			data.hot = $('#hot').val();
+			data.articleId = $('#articleId').val();
+			data.type = $('#type').val();
+			data.tag = $('#tag').val();
+			data.title = $('#title').val();
+			data.source = $('#source').val();
+			data.content = content;
+			$.post("/article/save", data, function(result){
+				var data = eval("(" + result + ")");
+				alert(data.msg);
+			});
+		});
+	});
+
+</script>
+
+</body>
+</html>

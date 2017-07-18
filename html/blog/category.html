@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>风度玉门-分类详情</title>
+<link rel="stylesheet" type="text/css" href="/blog/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/blog/css/nprogress.css">
+<link rel="stylesheet" type="text/css" href="/blog/css/style.css">
+<link rel="stylesheet" type="text/css" href="/blog/css/font-awesome.min.css">
+<link rel="apple-touch-icon-precomposed" href="/blog/images/icon/icon.png">
+<link rel="shortcut icon" href="/blog/images/icon/favicon.ico">
+<script src="/blog/js/jquery-2.1.4.min.js"></script>
+<script src="/blog/js/nprogress.js"></script>
+<script src="/blog/js/jquery.lazyload.min.js"></script>
+<!--[if gte IE 9]>
+  <script src="/blog/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+  <script src="/blog/js/html5shiv.min.js" type="text/javascript"></script>
+  <script src="/blog/js/respond.min.js" type="text/javascript"></script>
+  <script src="/blog/js/selectivizr-min.js" type="text/javascript"></script>
+<![endif]-->
+<!--[if lt IE 9]>
+  <script>window.location.href='/blog/upgrade-browser.html';</script>
+<![endif]-->
+</head>
+
+<body class="user-select">
+
+{(blog/header.html)}
+
+<section class="container">
+  <div class="content-wrap">
+    <div class="content">
+      <div class="title">
+        <h3 style="margin-left: 10px;">{* typeEntity.name *}</h3>
+      </div>
+
+      {% for i, v in ipairs(list) do %}  
+      <article class="excerpt excerpt-1">
+        <header><a class="cat" href="program">{* v.type_name *}<i></i></a>
+          <h2><a href="/article/detail?articleId={* v.article_id *}" target="_blank" title="">{* v.title *}</a></h2>
+        </header>
+        <p class="meta">
+          <time class="time"><i class="glyphicon glyphicon-time"></i>{* v.create_time *}</time>
+          <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共{* v.view_count *}人围观</span> <a class="comment" href="article.html#comment"><i class="glyphicon glyphicon-comment"></i> {* v.comment_count *}个不明物体</a></p>
+        <p class="note">{* v.content *}... </p>
+      </article>
+      {% end %}
+
+      <nav class="pagination" style="display: none;">
+        <ul>
+          <li class="next-page"><a href="/article/category?typeId={* typeEntity.type_id *}&pageNo={* pageNo *}">下一页</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+  
+  <!-- 右边栏 -->
+  {(blog/side.html)}
+
+</section>
+
+{(blog/footer.html)}
+
+<script src="/blog/js/bootstrap.min.js"></script> 
+<script src="/blog/js/jquery.ias.js"></script> 
+<script src="/blog/js/scripts.js"></script>
+</body>
+</html>

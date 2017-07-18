@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>CKEditor show</title>
+	<link rel="stylesheet" href="/js/highlight/styles/dark.css">
+	<!-- <script src="/js/jquery/jquery-1.8.min.js"></script> -->
+	<script src="/js/highlight/highlight.pack.js"></script>
+	<style type="text/css">
+  .cke_widget_drag_handler_container{display: none !important;background-repeat: no-repeat !important;position: absolute;width: 15px;height: 15px;}
+  .cke_widget_wrapper{position: relative;}
+</style>
+</head>
+<body>
+
+标题：<input type="text" name="title" id="title" value="{* entity.title *}" /><br/>
+来源：<input type="text" name="source" id="source" value="{* entity.source *}" /><br/>
+<div>
+	{* entity.content *}
+</div>
+
+
+<script>
+	// var config = {
+	// 	extraPlugins: 'codesnippet',
+	// 	codeSnippet_theme: 'zenburn',
+	// 	height: 356
+	// };
+
+	// var editor = CKEDITOR.replace('TextArea1', config);
+
+	hljs.initHighlightingOnLoad();
+
+</script>
+
+</body>
+</html>
