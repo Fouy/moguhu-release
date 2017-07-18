@@ -1,12 +1,27 @@
 #!/bin/bash
 # author: xuefeihu
 
+# 项目目录
 moguhuPath="/root/project"
-projectPath=${moguhuPath}"/moguhu"
-gitMoguhuPath="/Users/xuefeihu/hugege/code-sublime"
-gitProjectPath=${gitMoguhuPath}"/moguhu"
+convertMoguhuPath=${moguhuPath//\//\\\/} #将${moguhuPath}变为转义串
 
+gitMoguhuPath="/Users/xuefeihu/hugege/code-sublime"
+convertGitMoguhuPath=${gitMoguhuPath//\//\\\/}
+
+projectPath=${moguhuPath}"/moguhu"
+convertProjectPath=${projectPath//\//\\\/} #将${projectPath}变为转义串
+
+gitProjectPath=${gitMoguhuPath}"/moguhu"
+convertGitProjectPath=${gitProjectPath//\//\\\/}
+
+# openresty 安装目录
 openrestyPath="/root/software/openresty"
+convertOpenrestyPath=${openrestyPath//\//\\\/}
+
+gitOpenrestyPath="/Users/xuefeihu/software/openresty"
+convertGitOpenrestyPath=${gitOpenrestyPath//\//\\\/}
+
+# github地址
 projectUrl="https://codeload.github.com/Fouy/moguhu-release/zip/master"
 
 # stop server
@@ -26,15 +41,15 @@ sudo mv ${moguhuPath}/moguhu-release-master ${projectPath}
 sudo rm -rf ${moguhuPath}/moguhu-release-master.zip
 
 # replace /bin/* files
-convertProjectPath=${projectPath//\//\\\/} #将${projectPath}变为转义串
-convertGitProjectPath=${gitProjectPath//\//\\\/}
 sudo sed -i 's/'${convertGitProjectPath}'/'${convertProjectPath}'/g' ${projectPath}/bin/*
 
 # replace config/* files
 sudo sed -i 's/'${convertGitProjectPath}'/'${convertProjectPath}'/g' ${projectPath}/config/*
-convertMoguhuPath=${moguhuPath//\//\\\/} #将${moguhuPath}变为转义串
-convertGitMoguhuPath=${gitMoguhuPath//\//\\\/}
 sudo sed -i 's/'${convertGitMoguhuPath}'/'${convertMoguhuPath}'/g' ${projectPath}/config/*
+sudo sed -i 's/'${convertGitOpenrestyPath}'/'${convertOpenrestyPath}'/g' ${projectPath}/config/*
+
+sudo sed -i 's/#user  nobody;/user  root;/g' ${projectPath}/config/nginx.conf
+sudo sed -i 's/lua_code_cache off;/lua_code_cache on;/g' ${projectPath}/config/nginx.conf
 
 # replace lua/* files
 sudo sed -i 's/'${convertGitProjectPath}'/'${convertProjectPath}'/g' ${projectPath}/lua/init.lua
