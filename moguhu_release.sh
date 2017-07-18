@@ -1,30 +1,52 @@
 #!/bin/bash
+# author: xuefeihu
 
-oldMoguhuPath="/Users/xuefeihu/hugege/code-sublime/01-moguhu"
-newMoguhuPath="/Users/xuefeihu/hugege/code-sublime/01-moguhu-release"
-openrestyPath="/Users/xuefeihu/software/openresty"
+moguhuPath="/root/project"
+projectPath=${moguhuPath}"/moguhu"
+gitMoguhuPath="/Users/xuefeihu/hugege/code-sublime"
+gitProjectPath=${gitMoguhuPath}"/moguhu"
+
+openrestyPath="/root/software/openresty"
 projectUrl="https://codeload.github.com/Fouy/moguhu-release/zip/master"
 
 # stop server
-sudo /Users/xuefeihu/software/openresty/nginx/sbin/nginx  -s stop -c /Users/xuefeihu/hugege/code-sublime/01-moguhu/config/nginx.conf -p /Users/xuefeihu/hugege/code-sublime/01-moguhu/
-echo "OpenResty stop"
-echo -e "#####################################################\n\n"
+sudo ${openrestyPath}/nginx/sbin/nginx -c ${projectPath}/config/nginx.conf -p ${projectPath} -s stop
+echo "OpenResty stoped"
+echo -e "########################################################################\n\n"
+
+# remove old project path
+if [ -d "$projectPath" ]; then
+	sudo rm -rf ${projectPath}
+fi
 
 # get source code and publish
-sudo wget ${projectUrl} -O ${newMoguhuPath}/moguhu-release-master.zip
-sudo tar -zxvf ${newMoguhuPath}/moguhu-release-master.zip -C ${newMoguhuPath}
-sudo mv ${newMoguhuPath}/moguhu-release-master ${newMoguhuPath}/moguhu
-sudo rm -rf ${newMoguhuPath}/moguhu-release-master.zip
+sudo wget ${projectUrl} -O ${moguhuPath}/moguhu-release-master.zip
+sudo tar -zxvf ${moguhuPath}/moguhu-release-master.zip -C ${moguhuPath}
+sudo mv ${moguhuPath}/moguhu-release-master ${projectPath}
+sudo rm -rf ${moguhuPath}/moguhu-release-master.zip
 
 # replace /bin/* files
-sudo sed -i -huge 's/\/Users\/xuefeihu\/hugege\/code-sublime\/01-moguhu/\/Users\/xuefeihu\/hugege\/code-sublime\/01-moguhu-release\/moguhu/g' ${newMoguhuPath}/moguhu/bin/*
-rm -rf ${newMoguhuPath}/moguhu/bin/*-huge
+convertProjectPath=${projectPath//\//\\\/} #将${projectPath}变为转义串
+convertGitProjectPath=${gitProjectPath//\//\\\/}
+
+sudo sed -i -huge 's/'${convertGitProjectPath}'/'${convertProjectPath}'/g' ${projectPath}/bin/*
+sudo rm -rf ${projectPath}/bin/*-huge
+
 # replace config/* files
-sudo sed -i -huge 's/\/Users\/xuefeihu\/hugege\/code-sublime\/01-moguhu/\/Users\/xuefeihu\/hugege\/code-sublime\/01-moguhu-release\/moguhu/g' ${newMoguhuPath}/moguhu/config/*
-rm -rf ${newMoguhuPath}/moguhu/config/*-huge
+sudo sed -i -huge 's/'${convertGitProjectPath}'/'${convertProjectPath}'/g' ${projectPath}/config/*
+sudo rm -rf ${projectPath}/config/*-huge
+
+convertMoguhuPath=${moguhuPath//\//\\\/} #将${moguhuPath}变为转义串
+convertGitMoguhuPath=${gitMoguhuPath//\//\\\/}
+
+sudo sed -i -huge 's/'${convertGitMoguhuPath}'/'${convertMoguhuPath}'/g' ${projectPath}/config/*
+sudo rm -rf ${projectPath}/config/*-huge
+
+sudo chmod a+x ${projectPath}/*
 
 # start server
-
-
-
+sudo ${openrestyPath}/nginx/sbin/nginx -c ${projectPath}/config/nginx.conf -p ${projectPath}
+echo "OpenResty start"
+echo -e "########################################################################\n\n"
+tail -f ${projectPath}/logs/error.log
 
