@@ -21,7 +21,7 @@ fi
 
 # get source code and publish
 sudo wget ${projectUrl} -O ${moguhuPath}/moguhu-release-master.zip
-sudo tar -zxvf ${moguhuPath}/moguhu-release-master.zip -C ${moguhuPath}
+sudo unzip ${moguhuPath}/moguhu-release-master.zip -d ${moguhuPath}
 sudo mv ${moguhuPath}/moguhu-release-master ${projectPath}
 sudo rm -rf ${moguhuPath}/moguhu-release-master.zip
 
@@ -29,18 +29,18 @@ sudo rm -rf ${moguhuPath}/moguhu-release-master.zip
 convertProjectPath=${projectPath//\//\\\/} #将${projectPath}变为转义串
 convertGitProjectPath=${gitProjectPath//\//\\\/}
 
-sudo sed -i -huge 's/'${convertGitProjectPath}'/'${convertProjectPath}'/g' ${projectPath}/bin/*
-sudo rm -rf ${projectPath}/bin/*-huge
+sudo sed -i huge 's/'${convertGitProjectPath}'/'${convertProjectPath}'/g' ${projectPath}/bin/*
+sudo rm -rf ${projectPath}/bin/*huge
 
 # replace config/* files
-sudo sed -i -huge 's/'${convertGitProjectPath}'/'${convertProjectPath}'/g' ${projectPath}/config/*
-sudo rm -rf ${projectPath}/config/*-huge
+sudo sed -i huge 's/'${convertGitProjectPath}'/'${convertProjectPath}'/g' ${projectPath}/config/*
+sudo rm -rf ${projectPath}/config/*huge
 
 convertMoguhuPath=${moguhuPath//\//\\\/} #将${moguhuPath}变为转义串
 convertGitMoguhuPath=${gitMoguhuPath//\//\\\/}
 
-sudo sed -i -huge 's/'${convertGitMoguhuPath}'/'${convertMoguhuPath}'/g' ${projectPath}/config/*
-sudo rm -rf ${projectPath}/config/*-huge
+sudo sed -i huge 's/'${convertGitMoguhuPath}'/'${convertMoguhuPath}'/g' ${projectPath}/config/*
+sudo rm -rf ${projectPath}/config/*huge
 
 sudo chmod a+x ${projectPath}/*
 
