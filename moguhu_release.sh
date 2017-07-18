@@ -28,19 +28,16 @@ sudo rm -rf ${moguhuPath}/moguhu-release-master.zip
 # replace /bin/* files
 convertProjectPath=${projectPath//\//\\\/} #将${projectPath}变为转义串
 convertGitProjectPath=${gitProjectPath//\//\\\/}
-
-sudo sed -i huge 's/'${convertGitProjectPath}'/'${convertProjectPath}'/g' ${projectPath}/bin/*
-sudo rm -rf ${projectPath}/bin/*huge
+sudo sed -i 's/'${convertGitProjectPath}'/'${convertProjectPath}'/g' ${projectPath}/bin/*
 
 # replace config/* files
-sudo sed -i huge 's/'${convertGitProjectPath}'/'${convertProjectPath}'/g' ${projectPath}/config/*
-sudo rm -rf ${projectPath}/config/*huge
-
+sudo sed -i 's/'${convertGitProjectPath}'/'${convertProjectPath}'/g' ${projectPath}/config/*
 convertMoguhuPath=${moguhuPath//\//\\\/} #将${moguhuPath}变为转义串
 convertGitMoguhuPath=${gitMoguhuPath//\//\\\/}
+sudo sed -i 's/'${convertGitMoguhuPath}'/'${convertMoguhuPath}'/g' ${projectPath}/config/*
 
-sudo sed -i huge 's/'${convertGitMoguhuPath}'/'${convertMoguhuPath}'/g' ${projectPath}/config/*
-sudo rm -rf ${projectPath}/config/*huge
+# replace lua/* files
+sudo sed -i 's/'${convertGitProjectPath}'/'${convertProjectPath}'/g' ${projectPath}/lua/init.lua
 
 sudo chmod a+x ${projectPath}/*
 

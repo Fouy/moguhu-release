@@ -1,7 +1,7 @@
 local cjson = require "cjson";
 local configCache = ngx.shared.configCache;
 
-local resourcesFile =  io.open("/Users/xuefeihu/hugege/code-sublime/01-moguhu/config/resources.properties", "r");
+local resourcesFile =  io.open("/Users/xuefeihu/hugege/code-sublime/moguhu/config/resources.properties", "r");
 local resourcesStr = resourcesFile:read("*a");
 resourcesFile:close();
 
