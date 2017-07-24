@@ -1,6 +1,10 @@
 local cjson = require "cjson";
 local configCache = ngx.shared.configCache;
 
+if configCache:get('isload') then
+	return
+end
+
 local resourcesFile =  io.open("/Users/xuefeihu/hugege/code-sublime/moguhu/config/resources.properties", "r");
 local resourcesStr = resourcesFile:read("*a");
 resourcesFile:close();
@@ -13,3 +17,4 @@ for k,v in pairs(resourcesJson) do
 	ngx.log(ngx.ERR, "key:" .. k .. ", value:" .. v);
 end
 ngx.log(ngx.ERR, "<<<<<<<<<<<<<<<<<<<<<<<<<<<End Config>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+configCache:set('isload', 1)
