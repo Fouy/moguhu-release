@@ -10,12 +10,11 @@ end
 
 function _M:new(success, code, msg, data)
     local temp = {}
-    setmetatable(temp, _M)
     temp.success = success
     temp.code = code
     temp.msg = msg
     temp.data = data
-    return temp
+    return setmetatable(temp, _M)
 end
 
 return _M
