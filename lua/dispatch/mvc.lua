@@ -35,10 +35,10 @@ local ret, ctrl, err = pcall(require, path)
 
 if ret == false then
     if is_debug then
-        ngx.status = 404
+        ngx.status = ngx.HTTP_NOT_FOUND
         ngx.say("<p style='font-size: 50px'>Error: <span style='color:red'>" .. ctrl .. "</span> module not found !</p>")
     end
-    ngx.exit(404)
+    ngx.exit(ngx.HTTP_NOT_FOUND)
 end
 
 -- 尝试获取模块方法，不存在则报错
@@ -46,10 +46,10 @@ local req_method = ctrl[method]
 
 if req_method == nil then
     if is_debug then
-        ngx.status = 404
+        ngx.status = ngx.HTTP_NOT_FOUND
         ngx.say("<p style='font-size: 50px'>Error: <span style='color:red'>" .. method .. "()</span> method not found in <span style='color:red'>" .. moduleName .. "</span> lua module !</p>")
     end
-    ngx.exit(404)
+    ngx.exit(ngx.HTTP_NOT_FOUND)
 end
 
 -- 执行模块方法，报错则显示错误信息，所见即所得，可以追踪lua报错行数
