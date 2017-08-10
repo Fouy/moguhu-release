@@ -76,12 +76,12 @@
 
       {% for i, v in ipairs(list) do %}  
       <article class="excerpt excerpt-1">
-        <header><a class="cat" href="program">{* v.type_name *}<i></i></a>
+        <header><a class="cat" href="">{* v.type_name *}<i></i></a>
           <h2><a href="/article/detail?articleId={* v.article_id *}" target="_blank" title="">{* v.title *}</a></h2>
         </header>
         <p class="meta">
           <time class="time"><i class="glyphicon glyphicon-time"></i>{* v.create_time *}</time>
-          <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共{* v.view_count *}人围观</span> <a class="comment" href="article.html#comment"><i class="glyphicon glyphicon-comment"></i> {* v.comment_count *}个不明物体</a></p>
+          <span class="views"><i class="glyphicon glyphicon-eye-open"></i> 共{* v.view_count *}人围观</span> <a class="comment" href=""><i class="glyphicon glyphicon-comment"></i> {* v.comment_count *}个不明物体</a></p>
         <p class="note">{* v.content *}... </p>
       </article>
       {% end %}
