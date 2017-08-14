@@ -13,6 +13,8 @@ local config = {
 
 local _M = {}
 
+_M._VERSION="0.1"
+
 function _M.new( self )
 	local db, err = mysql:new()
 	if not db then

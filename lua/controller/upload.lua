@@ -6,6 +6,8 @@ local configCache = ngx.shared.configCache;
 
 local _M = {}
 
+_M._VERSION="0.1"
+
 -- 文件上传
 function _M.file()
     local args = ngx.req.get_uri_args()

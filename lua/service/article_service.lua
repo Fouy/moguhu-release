@@ -7,6 +7,8 @@ local utf8sub = require("libs.utf8sub")
 
 local _M = {}
 
+_M._VERSION="0.1"
+
 -- 新增文章
 function _M:save( article_entity )
 	article_entity['type'] = ngx.quote_sql_str(article_entity['type'])

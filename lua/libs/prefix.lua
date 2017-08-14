@@ -1,5 +1,7 @@
 local _M = {}
 
+_M._VERSION="0.1"
+
 --获取文件名
 function _M:getFileName(str)
     local idx = str:match(".+()%.%w+$")

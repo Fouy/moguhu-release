@@ -6,6 +6,8 @@ local template = require("resty.template")
 
 local _M = {}
 
+_M._VERSION="0.1"
+
 -- 获取列表
 function _M:list()
 	local list = tag_service:list()

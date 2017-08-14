@@ -1,5 +1,7 @@
 local _M = {}
 
+_M._VERSION="0.1"
+
 function _M:error( msg )
 	return _M:new(false, "9999", msg, nil)
 end

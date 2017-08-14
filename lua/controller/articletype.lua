@@ -7,6 +7,8 @@ local template = require("resty.template")
 
 local _M = {}
 
+_M._VERSION="0.1"
+
 -- 获取类型列表
 function _M:list()
 	local list = article_type_service:list()

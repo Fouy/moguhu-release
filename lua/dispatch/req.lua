@@ -1,5 +1,7 @@
 local _M = {}
 
+_M._VERSION="0.1"
+
 -- 获取http get/post 请求参数
 function _M.getArgs()
     local request_method = ngx.var.request_method

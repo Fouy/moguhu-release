@@ -1,6 +1,8 @@
 
 local _M = {}
 
+_M._VERSION="0.1"
+
 function _M:clearHTML(html)
     html = string.gsub(html, '<script[%a%A]->[%a%A]-</script>', '')
     html = string.gsub(html, '<style[%a%A]->[%a%A]-</style>', '')

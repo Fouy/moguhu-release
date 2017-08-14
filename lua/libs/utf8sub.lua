@@ -6,6 +6,8 @@
 
 local _M = {}
 
+_M._VERSION="0.1"
+
 local function chsize(char)
 	if not char then
 		print("not char")

@@ -3,6 +3,8 @@ local mysql = require("libs.mysql")
 
 local _M = {}
 
+_M._VERSION="0.1"
+
 -- 查询列表
 function _M:list()
 	local db = mysql:new()

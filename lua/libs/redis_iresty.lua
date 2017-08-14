@@ -9,7 +9,8 @@ end
 
 
 local _M = new_tab(0, 155)
-_M._VERSION = '0.01'
+
+_M._VERSION="0.1"
 
 
 local commands = {

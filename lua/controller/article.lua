@@ -8,6 +8,8 @@ local template = require("resty.template")
 
 local _M = {}
 
+_M._VERSION="0.1"
+
 -- 编辑页面
 function _M:editor()
 	local args = req.getArgs()
