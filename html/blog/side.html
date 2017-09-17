@@ -53,7 +53,7 @@
   <script type="text/javascript">
     (function(){
 
-      var show_day = new Array('星期一','星期二','星期三','星期四','星期五','星期六','星期日'); 
+      var show_day = new Array('星期日','星期一','星期二','星期三','星期四','星期五','星期六'); 
       var time = new Date();
       var year = time.getFullYear();
       var month = time.getMonth();
@@ -62,7 +62,7 @@
 
       month = Number(month) + 1; 
 
-      var currentTime = year+'年'+month+'月'+date+'日'+' '+show_day[day-1];
+      var currentTime = year+'年'+month+'月'+date+'日'+' '+show_day[day];
       $("#currentTime").html(currentTime);
 
     })();
