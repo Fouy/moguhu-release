@@ -167,7 +167,7 @@ function _M:detail()
 	local viewsKey = "atricle:views:" .. articleId;
 	local viewCount = configCache:get(viewsKey)
 	if viewCount == nil or viewCount == "" then
-		viewCount = entity["view_count"]
+		viewCount = entity["view_count"] + 1
 	else
 		viewCount = viewCount + 1
 	end
