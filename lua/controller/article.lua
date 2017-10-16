@@ -5,6 +5,7 @@ local article_service = require "service.article_service"
 local article_type_service = require "service.article_type_service"
 local common_service = require "service.common_service"
 local template = require("resty.template")
+local configCache = ngx.shared.configCache;
 
 local _M = {}
 
@@ -161,6 +162,18 @@ function _M:detail()
 
 	local entity = article_service:detail(articleId)
 	local context = {entity = entity}
+
+	-- 增加访问数量
+	local viewsKey = "atricle:views:" .. articleId;
+	local viewCount = configCache:get(viewsKey)
+	if viewCount == nil or viewCount == "" then
+		viewCount = entity["view_count"]
+	else
+		viewCount = viewCount + 1
+	end
+	configCache:set(viewsKey, viewCount)
+	-- 更新返回的view_count
+	entity["view_count"] = viewCount
 
 	-- 增加热门文章数据
 	context["hotList"] = common_service:hotList()

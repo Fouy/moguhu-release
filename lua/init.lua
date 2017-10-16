@@ -1,6 +1,7 @@
 local cjson = require "cjson";
 local configCache = ngx.shared.configCache;
 
+-- 加载DB配置文件
 if configCache:get('isload') then
 	return
 end

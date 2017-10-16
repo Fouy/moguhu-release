@@ -59,6 +59,25 @@ function _M:update( article_entity )
 	end
 end
 
+-- 更新文章(文章查看数量)
+function _M:updateCount( article_entity )
+	article_entity['view_count'] = ngx.quote_sql_str(article_entity['viewCount'])
+	local articleId = tonumber(article_entity["articleId"])
+
+	local db = mysql:new()
+	local sql = "update article set `view_count`=%s, `modify_time`=now() " 
+			.. " where article_id = %d and view_count < %s"
+	sql = string.format(sql, article_entity['viewCount'], articleId, article_entity['viewCount'])
+
+	db:query("SET NAMES utf8")
+	local res, err, errno, sqlstate = db:query(sql)
+	db:close()
+	if not res then
+		ngx.say(err)
+		return {}
+	end
+end
+
 -- 查询列表
 function _M:list( args )
 	local pageSize = tonumber(args["pageSize"])
@@ -136,6 +155,22 @@ function _M:detail( articleId )
 	end
 
 	return entity
+end
+
+-- 查询所有文章IDS
+function _M:ids()
+	local db = mysql:new()
+	local sql = "select article_id from article"
+
+	db:query("SET NAMES utf8")
+	local res, err, errno, sqlstate = db:query(sql)
+	db:close()
+	if not res then
+		ngx.say(err)
+		return {}
+	end
+
+	return res
 end
 
 return _M
