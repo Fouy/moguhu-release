@@ -85,8 +85,8 @@ function _M:index()
 		args["pageSize"] = 10
 	end
 
-	local list = article_service:listTop6(args)
-	local typeList = article_type_service:list()
+	local list = article_service:list(args)
+	local typeList = article_type_service:listTop6()
 	local context = {list = list, pageNo = tonumber(args["pageNo"])+1, typeList = typeList }
 	
 	-- 增加热门文章数据
