@@ -21,6 +21,22 @@ function _M:list()
 	return res
 end
 
+-- 查询列表(TOP6)
+function _M:listTop6()
+	local db = mysql:new()
+	local sql = "select * from article_type limit 6"
+
+	db:query("SET NAMES utf8")
+	local res, err, errno, sqlstate = db:query(sql)
+	db:close()
+	if not res then
+		ngx.say(err)
+		return {}
+	end
+
+	return res
+end
+
 -- 查询详情
 function _M:detail( typeId )
 	local db = mysql:new()

@@ -85,7 +85,7 @@ function _M:index()
 		args["pageSize"] = 10
 	end
 
-	local list = article_service:list(args)
+	local list = article_service:listTop6(args)
 	local typeList = article_type_service:list()
 	local context = {list = list, pageNo = tonumber(args["pageNo"])+1, typeList = typeList }
 	
