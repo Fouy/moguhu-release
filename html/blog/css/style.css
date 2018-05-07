@@ -1787,7 +1787,7 @@ color:#FFF;
 	padding: 10px;
 }
 .excerpt {
-	padding: 10px 10px 10px 120px;
+	padding: 10px 10px 10px 10px;
 }
 .excerpt .focus {
 	width: 100px;
