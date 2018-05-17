@@ -3,21 +3,18 @@
   <div class="fixed">
     <div class="widget widget-tabs">
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#notice" aria-controls="notice" role="tab" data-toggle="tab">网站公告</a></li>
+        <li role="presentation" class="active"><a href="#notice" aria-controls="notice" role="tab" data-toggle="tab">历史今天</a></li>
         <li role="presentation"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">风度玉门</a></li>
       </ul>
 
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane notice active" id="notice">
-          <ul>
+          <ul id="past">
             <li>
-              <time datetime="2016-01-04">2016-01-04</time>
               <a href="" target="_blank">欢迎访问风度玉门</a></li>
             <li>
-              <time datetime="2016-01-04">2016-01-04</time>
               <a target="_blank" href="">在这里可以看到前端技术，后端程序，网站内容管理系统等文章，还有我的程序人生！</a></li>
             <li>
-              <time datetime="2016-01-04">2016-01-04</time>
               <a target="_blank" href="">在这个小工具中最多可以调用五条</a></li>
           </ul>
         </div>
@@ -64,6 +61,73 @@
 
       var currentTime = year+'年'+month+'月'+date+'日'+' '+show_day[day];
       $("#currentTime").html(currentTime);
+
+      function formatterDateTime() {
+        var date = new Date()
+        var month = date.getMonth() + 1
+        var datetime = date.getFullYear()
+                + ""// "年"
+                + (month >= 10 ? month : "0"+ month)
+                + ""// "月"
+                + (date.getDate() < 10 ? "0" + date.getDate() : date
+                        .getDate())
+                + ""
+                + (date.getHours() < 10 ? "0" + date.getHours() : date
+                        .getHours())
+                + ""
+                + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date
+                        .getMinutes())
+                + ""
+                + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date
+                        .getSeconds());
+        return datetime;
+      }
+
+      function formatterDate() {
+        var date = new Date()
+        var month = date.getMonth() + 1
+        var datetime = (month >= 10 ? month : "0"+ month)
+                + ""// "月"
+                + (date.getDate() < 10 ? "0" + date.getDate() : date.getDate());
+        return datetime;
+      }
+
+      $.ajax({
+          type: 'post',
+          url: 'http://route.showapi.com/119-42',
+          dataType: 'json',
+          data: {
+              "showapi_timestamp" : formatterDateTime(),
+              "showapi_appid" : '65352',
+              "showapi_sign" : '5ea3983a6e5f48babbccdb03c41696f1',
+              "date" : formatterDate()
+          },
+
+          error: function(XmlHttpRequest, textStatus, errorThrown) {
+              // alert("操作失败!");
+              console.log('操作失败!');
+          },
+          success: function(result) {
+              // console.log(result.showapi_res_body.list)
+              if (result && result.showapi_res_code == 0) {
+                var list = result.showapi_res_body.list;
+                $('#past').empty();
+                var length = list.length > 5 ? 5 : list.length;
+                for (var i = 0; i < length; i++) {
+                  var li = $('<li></li>');
+
+                  var a = $('<a></a>');
+                  a.attr('target', '_blank');
+                  a.attr('href', list[i].img);
+                  a.html(list[i].title);
+                  a.appendTo(li);
+                  
+                  li.appendTo($('#past'));
+                }
+              }
+          }
+      });
+
 
     })();
   </script>
