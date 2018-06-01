@@ -1,4 +1,5 @@
 local prefix_util = require "libs.prefix"
+local configCache = ngx.shared.configCache;
 local uri = ngx.var.uri
 
 -- 如果是首页
@@ -10,7 +11,14 @@ end
 
 local m, err = ngx.re.match(uri, "([a-zA-Z0-9-]+)/*([a-zA-Z0-9-]+)*")
 
-local is_debug = true       -- 调试阶段，会输出错误信息到页面上
+-- 调试阶段，会输出错误信息到页面上
+local is_debug = configCache:get("debug.mode")
+if is_debug == 'true' then
+    is_debug = true
+else
+    is_debug = false  
+end
+ngx.log(ngx.ERR, "is_debug:+++++++++++++++", is_debug)
 
 local moduleName = m[1]     -- 模块名
 local method = m[2]         -- 方法名

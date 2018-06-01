@@ -21,6 +21,14 @@ convertOpenrestyPath=${openrestyPath//\//\\\/}
 gitOpenrestyPath="/Users/xuefeihu/software/openresty"
 convertGitOpenrestyPath=${gitOpenrestyPath//\//\\\/}
 
+# password 相关
+localPassword="123456"
+onLinePassword="shuCHANG1992"
+
+# debug mode 相关
+localDebugMode="true"
+onLineDebugMode="false"
+
 # github地址
 projectUrl="https://codeload.github.com/Fouy/moguhu-release/zip/master"
 
@@ -54,6 +62,12 @@ sudo sed -i 's/lua_code_cache off;/lua_code_cache on;/g' ${projectPath}/config/n
 
 # replace lua/* files
 sudo sed -i 's/'${convertGitProjectPath}'/'${convertProjectPath}'/g' ${projectPath}/lua/init.lua
+
+# replace password
+sudo sed -i 's/'${localPassword}'/'${onLinePassword}'/g' ${projectPath}/config/resources.properties
+
+# replace debug mode
+sudo sed -i 's/'${localDebugMode}'/'${onLineDebugMode}'/g' ${projectPath}/config/resources.properties
 
 sudo chmod a+x ${projectPath}/*
 
