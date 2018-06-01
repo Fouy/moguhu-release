@@ -18,7 +18,7 @@ if is_debug == 'true' then
 else
     is_debug = false  
 end
-ngx.log(ngx.ERR, "is_debug:+++++++++++++++", is_debug)
+-- ngx.log(ngx.ERR, "is_debug:+++++++++++++++", is_debug)
 
 local moduleName = m[1]     -- 模块名
 local method = m[2]         -- 方法名
