@@ -5,20 +5,12 @@
 	<title>风度玉门-文章编辑页面</title>
 	<script src="/js/ckeditor/ckeditor.js"></script>
 	<script src="/js/jquery/jquery-1.8.min.js"></script>
-
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-5119662046684335",
-    enable_page_level_ads: true
-  });
-</script>
-	
 </head>
 <body>
 <input type="hidden" name="articleId" id="articleId" value="{% if articleId ~= nil then %}{* articleId *}{% end %}" />
 <input type="hidden" name="typeValue" id="typeValue" value="{% if entity ~= nil then %}{* entity.type_id *}{% end %}" />
 <input type="hidden" name="tagValue" id="tagValue" value="{% if entity ~= nil then %}{* entity.tag_id *}{% end %}" />
+<input type="hidden" name="hotValue" id="hotValue" value="{% if entity ~= nil then %}{* entity.hot *}{% end %}" />
 分类：
 <select id="type" name="type">
 </select><br/>
@@ -85,6 +77,11 @@
 
 	    }, 'json');
 
+	    var hotValue = $('#hotValue').val();
+    	if(hotValue) {
+    		$("#hot").val(hotValue);
+    	}
+
 		// 提交按钮
 		$('#submit').click(function(){
 			
@@ -106,9 +103,6 @@
 	});
 
 </script>
-
-<!-- CNZZ网站统计 -->
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1263339615'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263339615%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
 
 </body>
 </html>
