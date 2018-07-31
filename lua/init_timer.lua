@@ -34,8 +34,12 @@ handler = function (premature)
 		return 
 	end
 end
-local ok, err = ngx.timer.at(delay, handler)
-if not ok then
-    ngx.log(ngx.ERR, "failed to create viewCount timer: ", err)
-return end
 
+--  安全启动唯一实例的timer (id=0的Worker)
+if 0 == ngx.worker.id() then
+	local ok, err = ngx.timer.at(delay, handler)
+	if not ok then
+	    ngx.log(ngx.ERR, "failed to create viewCount timer: ", err)
+		return 
+	end
+end
