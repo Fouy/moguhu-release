@@ -23,7 +23,7 @@ convertGitOpenrestyPath=${gitOpenrestyPath//\//\\\/}
 
 # password 相关
 localPassword="123456"
-onLinePassword="shuCHANG1992"
+onLinePassword="moguhu123456"
 
 # debug mode 相关
 localDebugMode="true"
