@@ -38,7 +38,7 @@ function _M:save()
 	local token = args["token"]
 	local hot = args["hot"]
 
-	if token == nil or token ~= "340323" then
+	if token == nil or token ~= "123456" then
 		ngx.say(cjson.encode(result:error("口令错误")))
 		return 
 	end
